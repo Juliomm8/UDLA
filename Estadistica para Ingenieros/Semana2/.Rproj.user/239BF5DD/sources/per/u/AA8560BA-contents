@@ -1,0 +1,27 @@
+# VAR Edad_1 vs Edad_2
+
+plot(EMA_2023$edad_1, EMA_2023$edad_2)
+
+base_filtrado = filter(EMA_2023, edad_1 <= 150)
+
+plot(base_filtrado$edad_1, base_filtrado$edad_2)
+cor(base_filtrado$edad_1, base_filtrado$edad_2)
+abline(h = 20, col= "red")
+abline(v = 20, col= "blue")
+
+
+# Var edad hombres vs mujeres
+plot(EDV_2023$edad_1, EDV_2023$edad_2)
+base_filtrado_Divorcios = filter(EDV_2023, edad_1 <= 150, edad_2 <= 150)
+plot(base_filtrado_Divorcios$edad_1, base_filtrado_Divorcios$edad_2)
+cor(base_filtrado_Divorcios$edad_1, base_filtrado_Divorcios$edad_2)
+
+
+#Var edad_1 vs dur_mat
+plot(base_filtrado_Divorcios$edad_1, base_filtrado_Divorcios$dur_mat)
+cor(base_filtrado_Divorcios$edad_1, base_filtrado_Divorcios$dur_mat)
+
+plot(base_filtrado_Divorcios$edad_2, base_filtrado_Divorcios$dur_mat)
+cor(base_filtrado_Divorcios$edad_2, base_filtrado_Divorcios$dur_mat)
+
+hist(base_filtrado_Divorcios$dur_mat)
