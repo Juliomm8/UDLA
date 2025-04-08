@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *  disparar semillas para eliminar a los enemigos.
  * 
  * Controles:
- * - Flechas del teclado o WASD para moverse
+ * - Flechas del teclado o WASD para moverse. Check
  * - Barra espaciadora para disparar semillas
  * 
  * La clase Hero maneja la lógica de movimiento y disparo.
@@ -23,5 +23,16 @@ public class Hero extends Actor
     public void act()
     {
         // Add your action code here.
+        movHero();
+        //shootSpeed();
     }
+    
+    public void movHero() {
+    if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) move(-3);
+    if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) move(3);
+    if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w")) setLocation(getX(), getY() - 3);
+    if (Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s")) setLocation(getX(), getY() + 3);
+    }
+    
+    
 }
