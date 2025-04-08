@@ -18,11 +18,12 @@ public class MyWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 800, 1); 
         prepare();
+        
     }
-    /**
-     * Prepare the world for the start of the program.
-     * That is: create the initial objects and add them to the world.
-     */
+    public boolean dentroDeLimites(int x, int y, int margen) {
+    return x >= margen && x <= getWidth() - margen &&
+           y >= margen && y <= getHeight() - margen;
+    }
     private void prepare()
     {
     }
