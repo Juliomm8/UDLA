@@ -2,9 +2,11 @@
 comment0.target=Hero
 comment0.text=\r\n\ El\ nombre\ del\ h\u00E9roe\ es\ "El\ Bot\u00E1nico\ Errante".\r\n\ Este\ h\u00E9roe\ se\ desplaza\ por\ el\ mundo\ y\ puede\r\n\ disparar\ semillas\ para\ eliminar\ a\ los\ enemigos.\r\n\ \r\n\ Controles\:\r\n\ -\ Flechas\ del\ teclado\ o\ WASD\ para\ moverse\r\n\ -\ Barra\ espaciadora\ para\ disparar\ semillas\r\n\ \r\n\ La\ clase\ Hero\ maneja\ la\ l\u00F3gica\ de\ movimiento\ y\ disparo.\r\n\ \r\n\ @author\ (Julio\ Mera)\r\n\ @version\ (Abril\ 2025)\r\n
 comment1.params=
-comment1.target=void\ act()
+comment1.target=Hero()
 comment2.params=
-comment2.target=void\ movHero()
+comment2.target=void\ act()
 comment3.params=
-comment3.target=void\ shootSeed()
-numComments=4
+comment3.target=void\ movHero()
+comment4.params=
+comment4.target=void\ shootSeed()
+numComments=5

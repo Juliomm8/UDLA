@@ -14,7 +14,7 @@ public class SeedShot extends Actor
      */
  public void act()
     {
-        move(6); // velocidad
+        move(8); // velocidad
 
         // Detectar colisión con enemigos primero
         if (isTouching(Enemy_1.class)) {

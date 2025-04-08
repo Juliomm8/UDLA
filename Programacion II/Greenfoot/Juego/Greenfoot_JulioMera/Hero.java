@@ -16,7 +16,16 @@ import greenfoot.*;
  */
 public class Hero extends Actor
 {
-    private int shootCooldown = 0; // tiempo de espera entre disparos
+    private int shootCooldown = 0;
+    private GreenfootImage originalImage;
+    private GreenfootImage mirroredImage;
+    private int speedMov = 2;
+
+    public Hero() {
+        originalImage = getImage(); 
+        mirroredImage = new GreenfootImage(originalImage);
+        mirroredImage.mirrorHorizontally();
+    }
 
     public void act()
     {
@@ -30,39 +39,45 @@ public class Hero extends Actor
 
     public void movHero() {
         if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
-            setLocation(getX() - 3, getY());
+            setImage(mirroredImage);
+            setLocation(getX() - speedMov, getY());
         }
         if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
-            setLocation(getX() + 3, getY());
+            setImage(originalImage);
+            setLocation(getX() + speedMov, getY());
         }
         if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w")) {
-            setLocation(getX(), getY() - 3);
+            setLocation(getX(), getY() - speedMov);
         }
         if (Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s")) {
-            setLocation(getX(), getY() + 3);
+            setLocation(getX(), getY() + speedMov);
         }
     }
 
     public void shootSeed() {
         if (shootCooldown > 0) return;
-
+    
+        boolean up = Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w");
+        boolean down = Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s");
+        boolean left = Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a");
+        boolean right = Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d");
+    
         int direction = -1;
-
-        if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
-            direction = 0;
-        } else if (Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s")) {
-            direction = 90;
-        } else if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
-            direction = 180;
-        } else if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w")) {
-            direction = 270;
-        }
-
+    
+        if (up && right) direction = 315;
+        else if (up && left) direction = 225;
+        else if (down && right) direction = 45;
+        else if (down && left) direction = 135;
+        else if (up) direction = 270;
+        else if (down) direction = 90;
+        else if (right) direction = 0;
+        else if (left) direction = 180;
+    
         if (Greenfoot.isKeyDown("space") && direction != -1) {
             SeedShot seed = new SeedShot();
             seed.setRotation(direction);
             getWorld().addObject(seed, getX(), getY());
             shootCooldown = 15;
         }
-    }
+}
 }
