@@ -1,31 +1,27 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class SeedShot here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Clase que maneja el comportamiento de las semillas disparadas por el héroe.
  */
 public class SeedShot extends Actor
 {
     /**
-     * Act - do whatever the SeedShot wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Act - hace que la semilla se mueva, detecte colisiones y se elimine si toca un enemigo o el borde del mundo.
      */
- public void act()
+    public void act()
     {
-        move(8); // velocidad
+        move(8); // velocidad de la semilla
 
         // Detectar colisión con enemigos primero
         if (isTouching(Enemy_1.class)) {
-            removeTouching(Enemy_1.class);
-            getWorld().removeObject(this);
-            return; // detener ejecución del act() para evitar el error
+            removeTouching(Enemy_1.class);  // Eliminar el enemigo al tocar la semilla
+            getWorld().removeObject(this);  // Eliminar la semilla
+            return; // Detener la ejecución del act() para evitar que siga haciendo más acciones
         }
 
-        // Luego verificar si llegó al borde
+        // Luego verificar si la semilla llegó al borde
         if (isAtEdge()) {
-            getWorld().removeObject(this);
+            getWorld().removeObject(this);  // Eliminar la semilla si sale del mundo
         }
     }
 }
