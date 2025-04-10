@@ -10,18 +10,10 @@ public class SeedShot extends Actor
      */
     public void act()
     {
-        move(8); // velocidad de la semilla
+        move(5); // velocidad de la semilla
 
-        // Detectar colisión con enemigos primero
-        if (isTouching(Enemy_1.class)) {
-            removeTouching(Enemy_1.class);  // Eliminar el enemigo al tocar la semilla
-            getWorld().removeObject(this);  // Eliminar la semilla
-            return; // Detener la ejecución del act() para evitar que siga haciendo más acciones
-        }
-
-        // Luego verificar si la semilla llegó al borde
         if (isAtEdge()) {
-            getWorld().removeObject(this);  // Eliminar la semilla si sale del mundo
+            getWorld().removeObject(this);
         }
     }
 }

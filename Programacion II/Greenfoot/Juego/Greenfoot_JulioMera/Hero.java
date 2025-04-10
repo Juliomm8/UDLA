@@ -1,4 +1,4 @@
-import greenfoot.*;  
+import greenfoot.*;
 
 /**
  * El nombre del héroe es "El Botánico Errante".
@@ -8,100 +8,82 @@ import greenfoot.*;
  * Controles:
  * - Flechas del teclado o WASD para moverse
  * - Barra espaciadora para disparar semillas
+ * - Clic izquierdo para disparar hacia el mouse
  * 
- * La clase Hero maneja la lógica de movimiento y disparo.
- * 
- * @author (Julio Mera)
- * @version (Abril 2025)
+ * @author Julio Mera
+ * @version Abril 2025
  */
 public class Hero extends Actor
 {
     private int shootCooldown = 0;
-    private int speedMov = 3; // Velocidad normal de movimiento
-    private int cooldownTime = 20; // Tiempo de espera entre disparos
-    private int baseSpeed = 2; // Velocidad base de movimiento
-    private int runSpeed = 4; // Velocidad cuando corre (Shift)
-    private int currentSpeed = 2; // Velocidad actual (base o correr)
-    private int lastDirection = 0; // Dirección del último disparo
+    private final int cooldownTime = 20;
+    private int currentSpeed = 2;
+    private final int baseSpeed = 2;
+    private final int runSpeed = 4;
+    private int lastDirection = 0;
 
-    private GreenfootImage originalImage;
-    private GreenfootImage mirroredImage;
-    
-    public Hero() {
-        originalImage = getImage();  // Obtener la imagen original del héroe
-        mirroredImage = new GreenfootImage(originalImage);  // Crear una copia reflejada
-        mirroredImage.mirrorHorizontally();  // Reflejar la imagen horizontalmente (para movimiento hacia la izquierda)
-    }
+    private boolean facingRight = true;
+    private boolean lastFacingRight = true;
 
     public void act()
     {
-        movHero();  // Maneja el movimiento del héroe
-        shootSeed();  // Maneja el disparo de semillas
+        handleMovement();
+        shootSeedKeyboard();
+        aimAtMouse();
+        shootMouse();
+        updateImage();
 
-        // Reducir el tiempo de cooldown para disparar
         if (shootCooldown > 0) {
             shootCooldown--;
         }
     }
 
-    // Método para mover al héroe con las teclas WASD o flechas
-    public void movHero() {
-        if (Greenfoot.isKeyDown("shift")) {
-            currentSpeed = runSpeed;  // Aumenta la velocidad cuando Shift está presionado
-        } else {
-            currentSpeed = baseSpeed;  // Velocidad normal
-        }
+    private void handleMovement()
+    {
+        currentSpeed = Greenfoot.isKeyDown("shift") ? runSpeed : baseSpeed;
 
         int newX = getX();
         int newY = getY();
 
-        // Movimiento hacia la izquierda (y reflejar la imagen)
-        if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
-            setImage(mirroredImage);  // Refleja la imagen del héroe
+        if (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")) {
+            facingRight = false;
             newX -= currentSpeed;
-            lastDirection = 180;  // Guarda la dirección del último movimiento
+            lastDirection = 180;
         }
-        
-        // Movimiento hacia la derecha
-        if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
-            setImage(originalImage);  // Usa la imagen original para la dirección derecha
+
+        if (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")) {
+            facingRight = true;
             newX += currentSpeed;
-            lastDirection = 0;  // Dirección derecha
+            lastDirection = 0;
         }
-        
-        // Movimiento hacia arriba
-        if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w")) {
+
+        if (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) {
             newY -= currentSpeed;
-            lastDirection = 270;  // Dirección hacia arriba
+            lastDirection = 270;
         }
-        
-        // Movimiento hacia abajo
-        if (Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s")) {
+
+        if (Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) {
             newY += currentSpeed;
-            lastDirection = 90;  // Dirección hacia abajo
+            lastDirection = 90;
         }
 
-        int margen = 100;  // Margen de seguridad para no salir del mundo
-
-        // Verifica si la nueva posición está dentro de los límites del mundo
         MyWorld mundo = (MyWorld)getWorld();
-        if (mundo.dentroDeLimites(newX, newY, margen)) {
-            setLocation(newX, newY);  // Mueve al héroe si está dentro de los límites
+        if (mundo.dentroDeLimites(newX, newY, 100)) {
+            setLocation(newX, newY);
         }
     }
 
-    // Método para disparar las semillas
-    public void shootSeed() {
-        if (shootCooldown > 0) return;  // Si el cooldown no ha terminado, no dispara
+    private void shootSeedKeyboard()
+    {
+        if (shootCooldown > 0) return;
 
-        boolean up = Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w");
-        boolean down = Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s");
-        boolean left = Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a");
-        boolean right = Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d");
+        boolean up = Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up");
+        boolean down = Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down");
+        boolean left = Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left");
+        boolean right = Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right");
 
-        int direction = -1;  // Inicializa la dirección como inválida
+        int direction = -1;
 
-        // Combinaciones de teclas para dirección del disparo
         if (up && right) direction = 315;
         else if (up && left) direction = 225;
         else if (down && right) direction = 45;
@@ -110,19 +92,58 @@ public class Hero extends Actor
         else if (down) direction = 90;
         else if (right) direction = 0;
         else if (left) direction = 180;
-        else direction = lastDirection;  // Si no se mueve, dispara en la última dirección
+        else direction = lastDirection;
 
-        // Si se presiona la barra espaciadora, dispara la semilla
         if (Greenfoot.isKeyDown("space") && direction != -1) {
-            SeedShot seed = new SeedShot();  // Crea una nueva semilla
-            seed.setRotation(direction);  // Ajusta la dirección de la semilla
-            int offset = 16;  // Distancia desde el héroe para el disparo
-            double radians = Math.toRadians(direction);
-            int dx = (int)(Math.cos(radians) * offset);  // Cálculo de la posición X
-            int dy = (int)(Math.sin(radians) * offset);  // Cálculo de la posición Y
+            shoot(direction);
+        }
+    }
 
-            getWorld().addObject(seed, getX() + dx, getY() + dy);  // Añade la semilla al mundo en la posición ajustada
-            shootCooldown = cooldownTime;  // Inicia el cooldown entre disparos
+    private void shootMouse()
+    {
+        if (shootCooldown > 0) return;
+
+        if (Greenfoot.mousePressed(null)) {
+            SeedShot seed = new SeedShot();
+            int offset = facingRight ? 20 : -20;
+            getWorld().addObject(seed, getX() + offset, getY());
+
+            MouseInfo mouse = Greenfoot.getMouseInfo();
+            if (mouse != null) {
+                seed.turnTowards(mouse.getX(), mouse.getY());
+            }
+
+            shootCooldown = cooldownTime;
+        }
+    }
+
+    private void shoot(int direction)
+    {
+        SeedShot seed = new SeedShot();
+        seed.setRotation(direction);
+        int offset = 16;
+        double radians = Math.toRadians(direction);
+        int dx = (int)(Math.cos(radians) * offset);
+        int dy = (int)(Math.sin(radians) * offset);
+
+        getWorld().addObject(seed, getX() + dx, getY() + dy);
+        shootCooldown = cooldownTime;
+    }
+
+    private void aimAtMouse()
+    {
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if (mouse != null) {
+            facingRight = mouse.getX() >= getX();
+        }
+    }
+
+    private void updateImage()
+    {
+        if (facingRight != lastFacingRight) {
+            String img = facingRight ? "hero_right.png" : "hero_left.png";
+            setImage(new GreenfootImage(img));
+            lastFacingRight = facingRight;
         }
     }
 }
