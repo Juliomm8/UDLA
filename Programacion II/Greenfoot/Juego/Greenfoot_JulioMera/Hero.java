@@ -23,7 +23,14 @@ public class Hero extends Actor
     private int lastDirection = 0;
 
     private boolean facingRight = true;
-    private boolean lastFacingRight = true;
+    private boolean lastFacingRight = false; // ← fuerza updateImage en el primer act()
+
+    // CONSTRUCTOR: se asegura de que se muestre desde el principio
+    public Hero()
+    {
+        facingRight = true;
+        lastFacingRight = false; // Así updateImage se ejecuta en el primer frame
+    }
 
     public void act()
     {
@@ -32,6 +39,7 @@ public class Hero extends Actor
         aimAtMouse();
         shootMouse();
         updateImage();
+        checkCollisionWithEnemies();
 
         if (shootCooldown > 0) {
             shootCooldown--;
@@ -144,6 +152,14 @@ public class Hero extends Actor
             String img = facingRight ? "hero_right.png" : "hero_left.png";
             setImage(new GreenfootImage(img));
             lastFacingRight = facingRight;
+        }
+    }
+
+    private void checkCollisionWithEnemies()
+    {
+        if (isTouching(Enemy_1.class)) {
+            removeTouching(Enemy_1.class);
+            ((MyWorld)getWorld()).loseLife();
         }
     }
 }
