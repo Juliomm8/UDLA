@@ -13,11 +13,11 @@ public class MyWorld extends World
     public MyWorld()
     {
         super(1200, 800, 1);
-        prepare();          // Agrega fondo u otros elementos si quieres
+        prepare();          // Agrega decoraciones si se desea
         spawnHero();        // Coloca al jugador
         spawnEnemy();       // Crea el primer enemigo
-        showScore();        // Muestra el score inicial
-        showHearts();       // Muestra las vidas del jugador
+        showScore();        // Score inicial
+        showHearts();       // Vidas iniciales
     }
 
     /**
@@ -35,7 +35,7 @@ public class MyWorld extends World
      */
     private void prepare()
     {
-        // Aquí puedes agregar decoraciones u objetos iniciales si lo deseas.
+        // Puedes agregar objetos decorativos aquí si lo necesitas
     }
 
     /**
@@ -99,11 +99,11 @@ public class MyWorld extends World
      */
     public void showHearts()
     {
-        removeObjects(getObjects(complete_heart.class)); // Elimina corazones viejos
+        removeObjects(getObjects(complete_heart.class));
 
         for (int i = 0; i < lives; i++) {
             complete_heart heart = new complete_heart();
-            addObject(heart, 50 + i * 40, 70); // Posición: 50, 90, 130...
+            addObject(heart, 50 + i * 40, 70);
         }
     }
 
@@ -117,8 +117,7 @@ public class MyWorld extends World
 
         if (lives <= 0) {
             removeObject(hero);
-            // Aquí puedes cambiar a un mundo de Game Over en lugar de detener el juego
-            Greenfoot.stop();
+            Greenfoot.stop(); // Puedes cambiar esto a un GameOver más adelante
         }
     }
 }
