@@ -12,7 +12,7 @@ public class MainMenu extends World
     public MainMenu()
     {
         super(1200, 800, 1);
-        setBackground("menu_background.jpg");
+        setBackground("menu_background.png");
         addObject(new StartButton(), 600, 500);
         menuMusic.setVolume(50); // Puedes ajustar el volumen de 0 a 100
         menuMusic.playLoop();

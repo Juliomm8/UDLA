@@ -1,57 +1,59 @@
 import greenfoot.*;
 
 /**
- * Clase que define el mundo de juego, su tamaño y los objetos que contiene.
- * Maneja el score, las vidas del jugador, el spawn de enemigos y del héroe.
+ * This class defines the game world, its size, and the objects it contains.
+ * It handles score, player lives, enemy spawning, and the hero.
  */
 public class MyWorld extends World
 {
     private int score = 0;
     private int lives = 3;
     private Hero hero;
+    private String selectedCharacter;
+    private boolean gamePaused = false;
 
-    public MyWorld()
-    {
+    private int totalEnemiesSpawned = 0;
+    private int maxEnemies = 20;
+
+    public MyWorld() {
+        this("mage");
+    }
+
+    // Constructor with character selection
+    public MyWorld(String character) {
         super(1200, 800, 1);
-        prepare();          // Agrega decoraciones si se desea
-        spawnHero();        // Coloca al jugador
-        spawnEnemy();       // Crea el primer enemigo
-        showScore();        // Score inicial
-        showHearts();       // Vidas iniciales
+        selectedCharacter = character;
+
+        prepareWorld();
+        spawnHero();
+        spawnEnemy();
+        showScore();
+        showHearts();
     }
 
     /**
-     * Verifica si una posición está dentro de los límites del mundo,
-     * considerando un margen.
+     * Method to initialize decorative objects (optional).
      */
-    public boolean dentroDeLimites(int x, int y, int margen)
-    {
-        return x >= margen && x <= getWidth() - margen &&
-               y >= margen && y <= getHeight() - margen;
+    private void prepareWorld() {
+        // Add decorative objects here if needed
     }
 
     /**
-     * Método para inicializar decoraciones del mundo (opcional).
+     * Spawns an instance of the hero in the center of the world.
      */
-    private void prepare()
-    {
-        // Puedes agregar objetos decorativos aquí si lo necesitas
-    }
-
-    /**
-     * Agrega una instancia del héroe en el centro del mundo.
-     */
-    public void spawnHero()
-    {
-        hero = new Hero();
+    public void spawnHero() {
+        if ("warrior".equals(selectedCharacter)) {
+            hero = new Warrior(); // You need to create this class
+        } else {
+            hero = new Hero(); // Default: mage
+        }
         addObject(hero, getWidth() / 2, getHeight() / 2);
     }
 
     /**
-     * Crea un enemigo en una de tres posiciones predefinidas.
+     * Creates an enemy at one of three predefined positions.
      */
-    public void spawnEnemy()
-    {
+    public void spawnEnemy() {
         Enemy_1 enemy = new Enemy_1();
 
         int spawnIndex = Greenfoot.getRandomNumber(3);
@@ -59,46 +61,45 @@ public class MyWorld extends World
         int spawnY = 0;
 
         switch (spawnIndex) {
-            case 0: spawnX = 1;     spawnY = 450; break;
+            case 0: spawnX = 1200;  spawnY = 300; break;
             case 1: spawnX = 1200;  spawnY = 450; break;
-            case 2: spawnX = 700;   spawnY = 800; break;
+            case 2: spawnX = 1200;  spawnY = 600; break;
         }
 
         addObject(enemy, spawnX, spawnY);
+        totalEnemiesSpawned++;
     }
 
     /**
-     * Ejecutado en cada ciclo del mundo. 2% de probabilidad de spawnear un enemigo.
+     * Called every game frame. 2% chance to spawn an enemy, up to a max limit.
      */
-    public void act()
-    {
-        if (Greenfoot.getRandomNumber(100) < 2) {
-            spawnEnemy();
+    public void act() {
+        if (totalEnemiesSpawned < maxEnemies) {
+            if (Greenfoot.getRandomNumber(100) < 2) {
+                spawnEnemy();
+            }
         }
     }
 
     /**
-     * Suma puntos al score y actualiza el texto en pantalla.
+     * Adds points to the score and updates the display.
      */
-    public void addScore(int points)
-    {
+    public void addScore(int points) {
         score += points;
         showScore();
     }
 
     /**
-     * Muestra el score en la esquina superior izquierda.
+     * Displays the current score in the top-left corner.
      */
-    private void showScore()
-    {
+    private void showScore() {
         showText("Score: " + score, 100, 30);
     }
 
     /**
-     * Muestra corazones en pantalla según la cantidad de vidas actuales.
+     * Displays heart icons based on current player lives.
      */
-    public void showHearts()
-    {
+    public void showHearts() {
         removeObjects(getObjects(complete_heart.class));
 
         for (int i = 0; i < lives; i++) {
@@ -108,16 +109,28 @@ public class MyWorld extends World
     }
 
     /**
-     * Reduce una vida. Si llega a cero, elimina al jugador y detiene el juego.
+     * Reduces one life. If lives reach 0, the hero is removed and the game ends.
      */
-    public void loseLife()
-    {
+    public void loseLife() {
         lives--;
         showHearts();
 
         if (lives <= 0) {
-            removeObject(hero);
-            Greenfoot.stop(); // Puedes cambiar esto a un GameOver más adelante
+            hero.setDead();
         }
+    }
+
+    /**
+     * Returns whether the game is paused.
+     */
+    public boolean isGamePaused() {
+        return gamePaused;
+    }
+
+    /**
+     * Pauses the game.
+     */
+    public void pauseGame() {
+        gamePaused = true;
     }
 }

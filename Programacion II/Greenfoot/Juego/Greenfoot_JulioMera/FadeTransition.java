@@ -29,7 +29,7 @@ public class FadeTransition extends Actor
 public void act()
 {
     if (fading) {
-        alpha += 10;
+        alpha += 8;
         if (alpha >= 255) {
             alpha = 255; // <--- evita que se pase
             getImage().setTransparency(alpha);

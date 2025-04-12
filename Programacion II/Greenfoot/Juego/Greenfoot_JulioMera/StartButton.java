@@ -26,7 +26,7 @@ public class StartButton extends Actor
             menu.stopMusic();
 
             // Crea el objeto de transición y lo coloca en pantalla
-            FadeTransition transition = new FadeTransition(new MyWorld());
+            FadeTransition transition = new FadeTransition(new CharacterSelectWorld());
             getWorld().addObject(transition, 600, 400);
             transition.startFade();
         }
