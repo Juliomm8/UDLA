@@ -19,7 +19,7 @@ public class Enemy_1 extends Actor
 
     public void act()
     {
-        if (((MyWorld)getWorld()).isGamePaused()) return;
+        if (((Room1)getWorld()).isGamePaused()) return;
         
         animate();  
         chaseHero();
@@ -46,7 +46,7 @@ public class Enemy_1 extends Actor
         if (isTouching(SeedShot.class)) {
             removeTouching(SeedShot.class);
             getWorld().addObject(new FloatingScore(10), getX(), getY());
-            ((MyWorld)getWorld()).addScore(10);
+            ((Room1)getWorld()).addScore(10);
             getWorld().removeObject(this);
         }
     }

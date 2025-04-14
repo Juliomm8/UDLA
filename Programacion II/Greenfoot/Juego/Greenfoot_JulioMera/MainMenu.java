@@ -19,7 +19,7 @@ public class MainMenu extends World
         
                 // Agregar botón de música en esquina superior derecha
         MusicToggleButton musicButton = new MusicToggleButton(menuMusic);
-        addObject(musicButton, 1100, 50); // Puedes ajustar la posición
+        addObject(musicButton, 600, 580); // Puedes ajustar la posición
     }
 
 

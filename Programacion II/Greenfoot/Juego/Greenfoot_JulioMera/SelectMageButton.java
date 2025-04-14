@@ -10,7 +10,7 @@ public class SelectMageButton extends Actor
     public void act()
     {
         if (Greenfoot.mouseClicked(this)) {
-            MyWorld world = new MyWorld("mage");
+            Room1 world = new Room1("mage");
             Greenfoot.setWorld(world);
         }
     }

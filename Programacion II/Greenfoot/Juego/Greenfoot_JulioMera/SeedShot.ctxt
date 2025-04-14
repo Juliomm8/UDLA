@@ -1,7 +1,5 @@
 #BlueJ class context
 comment0.target=SeedShot
-comment0.text=\r\n\ Clase\ que\ maneja\ el\ comportamiento\ de\ las\ semillas\ disparadas\ por\ el\ h\u00E9roe.\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\r\n\ Act\ -\ hace\ que\ la\ semilla\ se\ mueva,\ detecte\ colisiones\ y\ se\ elimine\ si\ toca\ un\ enemigo\ o\ el\ borde\ del\ mundo.\r\n
 numComments=2

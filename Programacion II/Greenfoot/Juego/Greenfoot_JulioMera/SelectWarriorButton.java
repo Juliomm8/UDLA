@@ -7,11 +7,13 @@ public class SelectWarriorButton extends Actor
         setImage("select_warrior.png"); // Imagen para el guerrero
     }
 
-    public void act()
-    {
+    public void act() {
         if (Greenfoot.mouseClicked(this)) {
-            MyWorld world = new MyWorld("warrior");
-            Greenfoot.setWorld(world);
+            showLockedMessage();
         }
+    }
+        private void showLockedMessage() {
+        World world = getWorld();
+        world.showText("Character locked", world.getWidth() / 2, world.getHeight() - 50);
     }
 }

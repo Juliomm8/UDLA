@@ -122,9 +122,12 @@ public class Hero extends Actor
 
     private void handleMovement()
     {
-        int newX = getX();
-        int newY = getY();
-
+        int prevX = getX();
+        int prevY = getY();
+        int newX = prevX;
+        int newY = prevY;
+    
+        // Movimiento horizontal
         if (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")) {
             newX -= speed;
             lastDirection = 180;
@@ -133,6 +136,15 @@ public class Hero extends Actor
             newX += speed;
             lastDirection = 0;
         }
+    
+        setLocation(newX, prevY);
+        if (isTouching(Wall.class)) {
+            setLocation(prevX, prevY); // Revierte el movimiento horizontal
+        } else {
+            prevX = getX(); // Actualiza solo si se pudo mover
+        }
+    
+        // Movimiento vertical
         if (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) {
             newY -= speed;
             lastDirection = 270;
@@ -141,9 +153,13 @@ public class Hero extends Actor
             newY += speed;
             lastDirection = 90;
         }
-
-        setLocation(newX, newY);
+    
+        setLocation(getX(), newY);
+        if (isTouching(Wall.class)) {
+            setLocation(getX(), prevY); // Revierte el movimiento vertical
+        }
     }
+
 
     private void shootTrigger()
     {
@@ -189,7 +205,7 @@ public class Hero extends Actor
             hitFrameIndex = 0;
             hitAnimationCounter = 0;
         }
-        ((MyWorld)getWorld()).loseLife();
+        ((Room1)getWorld()).loseLife();
         }
     }
 
@@ -296,8 +312,27 @@ public class Hero extends Actor
         deathFrameIndex = 0;
         deathAnimationCounter = 0;
         
-        ((MyWorld)getWorld()).pauseGame(); // Pausa enemigos al morir
+        if (getWorld() instanceof Room1 room1) {
+            room1.pauseGame();
+        } else if (getWorld() instanceof Room2 room2) {
+            room2.pauseGame();
+        }
+
 
     }
+    
+        public void gainLife()
+    {
+        if (GameState.lives < 3) {
+            GameState.lives++;
+    
+            if (getWorld() instanceof Room1 room1) {
+                room1.showHearts();
+            } else if (getWorld() instanceof Room2 room2) {
+                room2.showHearts();
+            }
+        }
+    }
 
+    
 }
