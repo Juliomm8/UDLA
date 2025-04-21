@@ -16,7 +16,7 @@ public class Torneo {
         System.out.println(pokemon1);
         System.out.println(pokemonOponente);
 
-        // Batallas
+        // Batalla
         System.out.println("\nComienza la batalla (solo va atacar " + pokemon1.getNombre() + "):");
         while (pokemonOponente.getVida() > 0) {
             pokemon1.atacar(pokemonOponente);
