@@ -5,13 +5,15 @@ public class Torneo {
         Pokemon pokemon1 = new Pokemon("Snorlax",    "Normal", 10, 100);
         Pokemon pokemonOponente = new Pokemon("Charmander", "Fuego",  10, 100);
 
-        // Estado inicial
+        // Estado inicial de los Pokemones
         System.out.println(pokemon1);
         System.out.println(pokemonOponente);
 
         // Entrenan
         pokemon1.entrenar();
         pokemonOponente.entrenar();
+
+        // Mensaje para comprobar los valors despues de entrenar
         System.out.println("\nDespués de entrenar:");
         System.out.println(pokemon1);
         System.out.println(pokemonOponente);
