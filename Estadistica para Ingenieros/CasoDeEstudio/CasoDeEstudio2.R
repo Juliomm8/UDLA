@@ -14,7 +14,6 @@ ventas_tienda_202510$Precio[is.na(ventas_tienda_202510$Precio)] <- media_precio
 ventas_tienda_202510$Descuento[is.na(ventas_tienda_202510$Descuento)] <- 0
 
 
-
 # Verifica si todos los valores son enteros
 all(ventas_tienda_202510$Edad == floor(ventas_tienda_202510$Edad))
 # Redondear los floats en enteros
@@ -46,3 +45,7 @@ all(sapply(ventas_tienda_202510$MétodoPago, is.character))
 ventas_tienda_202510$TotalVenta <- (ventas_tienda_202510$Cantidad * ventas_tienda_202510$Precio) * (1 - ventas_tienda_202510$Descuento / 100)
 # Para que haya solo 2 decimales en el código
 ventas_tienda_202510$TotalVenta <- round(ventas_tienda_202510$TotalVenta, 2)
+
+
+# Guardar la base de datos con el formato csv
+write.csv(ventas_tienda_202510, "ventas_tienda_202510_limpia.csv", row.names = FALSE)
