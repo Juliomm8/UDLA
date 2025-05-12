@@ -21,3 +21,4 @@ cat("P(A) = ", P_A, "\n")
 cat("P(B) = ", P_B, "\n")
 cat("P(A n B) = ", P_AnB, "\n")
 cat("P(A U B) = ", P_A_union_B, "\n")
+
