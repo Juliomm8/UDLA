@@ -1,12 +1,12 @@
 // Main.java
 public class Main {
     public static void main(String[] args) {
-        Escuderia escuderia = new Escuderia("Scuderia Eclipse", "Ecuador");
+        Escuderia escuderia = new Escuderia("Ferrari", "Italia");
 
-        Ingeniero ing = new Ingeniero("Ana Pérez", 35, "Aerodinámica",
-                "revisar alerones traseros");
-        Piloto pil = new Piloto("Luis Gómez", 28, 7,
-                "mantener rebufo en recta");
+        Ingeniero ing = new Ingeniero("Jose", 19, "Aerodinámica",
+                "Ajustar el aleron trasero");
+        Piloto pil = new Piloto("Lewis", 38, 17,
+                "Atacar en la curva 7");
 
         escuderia.agregarMiembro(ing);
         escuderia.agregarMiembro(pil);
