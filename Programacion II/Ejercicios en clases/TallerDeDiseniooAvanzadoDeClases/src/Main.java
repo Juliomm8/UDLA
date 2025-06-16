@@ -21,6 +21,7 @@ public class Main {
 
         switch (opcion) {
             case 1:
+
                 tienda.realizarPago(new PagoEfectivo(), monto);
                 break;
             case 2:
