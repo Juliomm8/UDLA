@@ -1,48 +1,70 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
+
+    public static void main(String[] args) throws ValidacionMontoException {
         Tienda tienda = new Tienda();
+        boolean continuarPrograma = true;
+        Scanner s = new Scanner(System.in);
 
-        System.out.println("---------- MENÚ DE PAGOS ----------");
-        System.out.print("Ingrese el monto que va pagar: ");
-        double monto = s.nextDouble();
-        s.nextLine();
+        do {
+            double monto = 0;
+            boolean montoValido = false;
 
-        System.out.println("Seleccione método de pago:");
-        System.out.println("1. Efectivo");
-        System.out.println("2. Tarjeta");
-        System.out.println("3. PayPal");
-        System.out.println("4. Salir");
+            do {
+                try {
+                    System.out.println("---------- MENÚ DE PAGOS ----------");
+                    System.out.print("Ingrese el monto que va pagar: ");
+                    monto = s.nextDouble();
+                    if (monto <= 0) {
+                        throw new ValidacionMontoException("El monto debe ser mayor a 0");
+                    }
+                    montoValido = true;
+                } catch (ValidacionMontoException e) {
+                    System.out.println(e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Monto inválido. Intente nuevamente.");
+                    s.nextLine();
+                }
+            } while (!montoValido);
 
-        int opcion = s.nextInt();
-        s.nextLine();
+            s.nextLine();
+            System.out.println("\nSeleccione método de pago:");
+            System.out.println("1. Efectivo");
+            System.out.println("2. Tarjeta");
+            System.out.println("3. PayPal");
+            System.out.println("4. Salir");
 
-        switch (opcion) {
-            case 1:
+            int opcion = s.nextInt();
+            s.nextLine();
 
-                tienda.realizarPago(new PagoEfectivo(), monto);
-                break;
-            case 2:
-                System.out.print("Usuario: ");
-                String user1 = s.nextLine();
-                tienda.realizarPago(new PagoTarjeta(user1), monto);
-                break;
-            case 3:
-                System.out.print("Usuario: ");
-                String user2 = s.nextLine();
-                tienda.realizarPago(new PagoPayPal(user2), monto);
-            case 4 :
-                System.out.println("Cancelando operación...");
-                break;
-            default:
-                System.out.println("Opción inválida.");
-        }
+            switch (opcion) {
+                case 1:
+                    tienda.realizarPago(new PagoEfectivo(), monto);
+                    break;
+                case 2:
+                    System.out.print("Usuario: ");
+                    String user1 = s.nextLine();
+                    tienda.realizarPago(new PagoTarjeta(user1), monto);
+                    break;
+                case 3:
+                    System.out.print("Usuario: ");
+                    String user2 = s.nextLine();
+                    tienda.realizarPago(new PagoPayPal(user2), monto);
+                    break;
+                case 4:
+                    System.out.println("Cancelando operación...");
+                    continuarPrograma = false;
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+            }
+            if (opcion >= 1 && opcion <= 3) {
+                continuarPrograma = false;
+            }
+        } while (continuarPrograma);
     }
 }
-
-
 
 
 // Diseniar y emplentar un sistema de procesamiento de pago para una tienda, usar polimorfismo
