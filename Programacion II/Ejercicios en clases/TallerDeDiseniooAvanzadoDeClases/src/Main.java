@@ -4,10 +4,8 @@ public class Main {
 
     public static void main(String[] args) throws ValidacionMontoException {
         Tienda tienda = new Tienda();
-        boolean continuarPrograma = true;
         Scanner s = new Scanner(System.in);
-
-        do {
+        
             double monto = 0;
             boolean montoValido = false;
 
@@ -17,11 +15,9 @@ public class Main {
                     System.out.print("Ingrese el monto que va pagar: ");
                     monto = s.nextDouble();
                     if (monto <= 0) {
-                        throw new ValidacionMontoException("El monto debe ser mayor a 0");
+                    tienda.realizarPago(new PagoEfectivo(), monto);
                     }
                     montoValido = true;
-                } catch (ValidacionMontoException e) {
-                    System.out.println(e.getMessage());
                 } catch (Exception e) {
                     System.out.println("Monto inválido. Intente nuevamente.");
                     s.nextLine();
@@ -54,17 +50,13 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("Cancelando operación...");
-                    continuarPrograma = false;
                     break;
                 default:
                     System.out.println("Opción inválida.");
             }
-            if (opcion >= 1 && opcion <= 3) {
-                continuarPrograma = false;
-            }
-        } while (continuarPrograma);
     }
 }
+
 
 
 // Diseniar y emplentar un sistema de procesamiento de pago para una tienda, usar polimorfismo
@@ -96,3 +88,4 @@ public class Main {
 // Polimorfismo 1 ptos
 // Que corra el progra 3 pto
 // que este bien estructurad 1 pto
+
