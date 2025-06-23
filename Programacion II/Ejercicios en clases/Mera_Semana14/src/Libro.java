@@ -1,13 +1,11 @@
 public class Libro extends Publicacion implements Prestable {
     private boolean prestado;
 
-    // Constructor
     public Libro(String titulo, String autor) {
         super(titulo, autor);
         this.prestado = false;
     }
 
-    // Implementación de los métodos de la interfaz Prestable
     @Override
     public void presta() throws NoDisponibleException {
         if (prestado) {
@@ -29,7 +27,7 @@ public class Libro extends Publicacion implements Prestable {
         return prestado;
     }
 
-    // Sobrescritura del método mostrarInformacion
+
     @Override
     public void mostrarInformacion() {
         super.mostrarInformacion();

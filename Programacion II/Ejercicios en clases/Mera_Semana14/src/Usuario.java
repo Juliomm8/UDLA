@@ -6,11 +6,26 @@ public class Usuario {
     private int id;
     private List<Publicacion> publicacionesPrestadas;
 
-    // Constructor
     public Usuario(String nombre, int id) {
         this.nombre = nombre;
         this.id = id;
         this.publicacionesPrestadas = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     // Prestar una publicación
@@ -26,13 +41,7 @@ public class Usuario {
 
     // Devolver una publicación
     public void devolverPublicacion(Biblioteca biblioteca, Publicacion publicacion) {
-        try {
-            biblioteca.devuelvePublicacion(publicacion);
-            publicacionesPrestadas.remove(publicacion);
-            System.out.println("Publicación devuelta con éxito.");
-        } catch (NoPrestadoException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     // Mostrar publicaciones prestadas

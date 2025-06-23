@@ -4,7 +4,6 @@ import java.util.List;
 public class Biblioteca {
     private List<Publicacion> publicaciones;
 
-    // Constructor
     public Biblioteca() {
         this.publicaciones = new ArrayList<>();
     }
@@ -13,7 +12,7 @@ public class Biblioteca {
     public void agregaPublicacion(Publicacion publicacion) {
         publicaciones.add(publicacion);
     }
-
+    
     // Prestar una publicación
     public void prestaPublicacion(Publicacion publicacion) throws NoDisponibleException {
         if (publicacion instanceof Prestable) {
@@ -34,6 +33,8 @@ public class Biblioteca {
 
     // Mostrar todas las publicaciones
     public void mostrarPublicaciones() {
-        publicaciones.forEach(Publicacion::mostrarInformacion);
+        for(Publicacion publicacion : publicaciones){
+            publicacion.mostrarInformacion();
+        }
     }
 }
