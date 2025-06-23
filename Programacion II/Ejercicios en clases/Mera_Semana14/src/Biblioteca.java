@@ -12,7 +12,7 @@ public class Biblioteca {
     public void agregaPublicacion(Publicacion publicacion) {
         publicaciones.add(publicacion);
     }
-    
+
     // Prestar una publicación
     public void prestaPublicacion(Publicacion publicacion) throws NoDisponibleException {
         if (publicacion instanceof Prestable) {
