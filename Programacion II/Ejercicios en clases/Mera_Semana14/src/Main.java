@@ -7,7 +7,11 @@ public class Main {
         Libro libro2 = new Libro("Libro 2", "Autor Libro 2");
         Revista revista1 = new Revista("Revista1", "Autor Revista 1", 123);
 
-        
+        System.out.println("Verificar el estado de la biblioteca:");
+        biblioteca.mostrarPublicaciones();
+        System.out.println();
+
+
 
     }
 }
