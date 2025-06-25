@@ -1,9 +1,9 @@
 public class Main {
     public static void main(String[] args) {
         // Crear usuarios
-        Usuario usuario1 = new Usuario("Jere", 1234);
-        Usuario usuario2 = new Usuario("Ana", 5678);
-        Usuario usuario3 = new Usuario("Carlos", 9012);
+        Usuario usuario1 = new Usuario("Jere", "1234");
+        Usuario usuario2 = new Usuario("Ana", "5678");
+        Usuario usuario3 = new Usuario("Carlos", "9012");
         Biblioteca biblioteca = new Biblioteca();
 
         // Comprobar la bibliteca antes de agregar publicaciones
@@ -11,10 +11,10 @@ public class Main {
         biblioteca.mostrarPublicaciones();
 
         // Crear las publicaciones
-        Libro libro1 = new Libro("El Quijote", "Miguel de Cervantes");
+        Libro libro1 = new Libro("El Quijote", "Cervantes");
         Libro libro2 = new Libro("Cien años de soledad", "Gabriel García Márquez");
         Libro libro3 = new Libro("1984", "George Orwell");
-        Revista revista1 = new Revista("National Geographic", "National Geographic Society", 123);
+        Revista revista1 = new Revista("National Geographic", "National Geographic", 123);
         Revista revista2 = new Revista("Scientific American", "Nature Publishing Group", 456);
 
         // Agregar publicaciones a la biblioteca
@@ -53,7 +53,12 @@ public class Main {
         usuario1.devolverPublicacion(biblioteca, libro1);
         usuario1.devolverPublicacion(biblioteca, libro2);
         usuario2.devolverPublicacion(biblioteca, libro3);
+
+        // Intentar devolver otra ves
+        System.out.println("\nIntentar devolver otra vez:");
         usuario1.devolverPublicacion(biblioteca, libro1);
+        usuario1.devolverPublicacion(biblioteca, libro2);
+        usuario2.devolverPublicacion(biblioteca, libro3);
 
         System.out.println("\nEstado final de la biblioteca:");
         biblioteca.mostrarPublicaciones();

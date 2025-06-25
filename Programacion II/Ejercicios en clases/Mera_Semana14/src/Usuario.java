@@ -3,20 +3,20 @@ import java.util.List;
 
 public class Usuario {
     private String nombre;
-    private int id;
+    private String id;
     private final List<Publicacion> publicacionesPrestadas;
 
-    public Usuario(String nombre, int id) {
+    public Usuario(String nombre, String id) {
         this.nombre = nombre;
         this.id = id;
         this.publicacionesPrestadas = new ArrayList<>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
