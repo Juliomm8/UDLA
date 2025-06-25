@@ -59,7 +59,9 @@ public class Usuario {
         if (publicacionesPrestadas.isEmpty()) {
             System.out.println("No tiene publicaciones prestadas");
         } else {
-            publicacionesPrestadas.forEach(Publicacion::mostrarInformacion);
+            for (Publicacion publicacion : publicacionesPrestadas) {
+                publicacion.mostrarInformacion();
+            }
         }
     }
 }

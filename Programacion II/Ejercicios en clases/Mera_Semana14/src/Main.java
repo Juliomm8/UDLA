@@ -45,7 +45,7 @@ public class Main {
         usuario3.prestarPublicacion(biblioteca, libro2); // Intentar prestar libro ya prestado
         usuario3.mostrarPublicacionesPrestadas();
 
-        System.out.println("\nEstado de la biblioteca después de préstamos:");
+        System.out.println("\nEstado de la biblioteca después de prestar:");
         biblioteca.mostrarPublicaciones();
 
         // Devoluciones
