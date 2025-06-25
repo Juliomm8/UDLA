@@ -1,7 +1,7 @@
 public interface Prestable {
-    void presta() throws NoDisponibleException;
+    void prestar() throws NoDisponibleException;
 
-    void devuelve() throws NoPrestadoException;
+    void devolver() throws NoPrestadoException;
 
     boolean estaPrestado();
 }

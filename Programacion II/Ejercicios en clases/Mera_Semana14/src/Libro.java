@@ -7,7 +7,7 @@ public class Libro extends Publicacion implements Prestable {
     }
 
     @Override
-    public void presta() throws NoDisponibleException {
+    public void prestar() throws NoDisponibleException {
         if (prestado) {
             throw new NoDisponibleException("El libro ya está prestado.");
         }
@@ -15,7 +15,7 @@ public class Libro extends Publicacion implements Prestable {
     }
 
     @Override
-    public void devuelve() throws NoPrestadoException {
+    public void devolver() throws NoPrestadoException {
         if (!prestado) {
             throw new NoPrestadoException("El libro no está prestado.");
         }

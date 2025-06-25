@@ -4,7 +4,7 @@ import java.util.List;
 public class Usuario {
     private String nombre;
     private int id;
-    private List<Publicacion> publicacionesPrestadas;
+    private final List<Publicacion> publicacionesPrestadas;
 
     public Usuario(String nombre, int id) {
         this.nombre = nombre;
@@ -30,23 +30,36 @@ public class Usuario {
 
     // Prestar una publicación
     public void prestarPublicacion(Biblioteca biblioteca, Publicacion publicacion) {
+        if (publicacion instanceof Revista) {
+            System.out.println("Las revistas no se pueden prestar.");
+            return;
+        }
         try {
-            biblioteca.prestaPublicacion(publicacion);
+            biblioteca.prestarPublicacion(publicacion);
             publicacionesPrestadas.add(publicacion);
-            System.out.println("Publicación prestada con éxito.");
+            System.out.println("Publicación "+ publicacion.getTitulo() +" a sido prestada con éxito.");
         } catch (NoDisponibleException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    // Devolver una publicación
     public void devolverPublicacion(Biblioteca biblioteca, Publicacion publicacion) {
-
+        try {
+            biblioteca.devolverPublicacion(publicacion);
+            publicacionesPrestadas.remove(publicacion);
+            System.out.println("Publicación devuelta con éxito.");
+        } catch (NoPrestadoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // Mostrar publicaciones prestadas
     public void mostrarPublicacionesPrestadas() {
         System.out.println("Publicaciones prestadas por " + nombre + ":");
-        publicacionesPrestadas.forEach(Publicacion::mostrarInformacion);
+        if (publicacionesPrestadas.isEmpty()) {
+            System.out.println("No tiene publicaciones prestadas");
+        } else {
+            publicacionesPrestadas.forEach(Publicacion::mostrarInformacion);
+        }
     }
 }

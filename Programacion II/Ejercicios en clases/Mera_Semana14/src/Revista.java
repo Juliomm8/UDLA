@@ -1,18 +1,19 @@
 public class Revista extends Publicacion {
     private int numeroEdicion;
 
-    // Constructor
     public Revista(String titulo, String autor, int numeroEdicion) {
         super(titulo, autor);
         this.numeroEdicion = numeroEdicion;
     }
 
-    // Getter para numeroEdicion
     public int getNumeroEdicion() {
         return numeroEdicion;
     }
 
-    // Sobrescritura del método mostrarInformacion
+    public void setNumeroEdicion(int numeroEdicion) {
+        this.numeroEdicion = numeroEdicion;
+    }
+
     @Override
     public void mostrarInformacion() {
         super.mostrarInformacion();

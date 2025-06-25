@@ -2,30 +2,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Biblioteca {
-    private List<Publicacion> publicaciones;
+    private final List<Publicacion> publicaciones;
 
     public Biblioteca() {
         this.publicaciones = new ArrayList<>();
     }
 
     // Agregar publicación a la biblioteca
-    public void agregaPublicacion(Publicacion publicacion) {
+    public void agregarPublicacion(Publicacion publicacion) {
         publicaciones.add(publicacion);
     }
 
     // Prestar una publicación
-    public void prestaPublicacion(Publicacion publicacion) throws NoDisponibleException {
-        if (publicacion instanceof Prestable) {
-            ((Prestable) publicacion).presta();
+    public void prestarPublicacion(Publicacion publicacion) throws NoDisponibleException {
+        if (publicacion instanceof Prestable publicacionPrestable) {
+            publicacionPrestable.prestar();
         } else {
-            System.out.println("La publicación no es prestable.");
+            System.out.println("La publicación '" + publicacion.getTitulo() + "' no es prestable.");
         }
     }
 
     // Devolver una publicación
-    public void devuelvePublicacion(Publicacion publicacion) throws NoPrestadoException {
-        if (publicacion instanceof Prestable) {
-            ((Prestable) publicacion).devuelve();
+    public void devolverPublicacion(Publicacion publicacion) throws NoPrestadoException {
+        if (publicacion instanceof Prestable publicacionPrestable) {
+            publicacionPrestable.devolver();
         } else {
             System.out.println("La publicación no es prestable.");
         }
