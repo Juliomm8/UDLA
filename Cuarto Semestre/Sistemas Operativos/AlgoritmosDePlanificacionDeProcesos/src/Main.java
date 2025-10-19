@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Crear una lista de procesos con diferentes atributos
         List<Tabla> procesos = new ArrayList<>();
 
         procesos.add(new Tabla("A", 3, 2, 2));
@@ -13,10 +12,9 @@ public class Main {
 
         Scanner lector = new Scanner(System.in);
 
-        // Bucle para permitir que el usuario elija varias veces
         boolean seguirEjecutando = true;
         while (seguirEjecutando) {
-            // Menú para que el usuario seleccione el algoritmo a usar
+
             System.out.println("Selecciona el algoritmo a ejecutar:");
             System.out.println("1. Algoritmo FIFO");
             System.out.println("2. Algoritmo SJF");
@@ -27,18 +25,18 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    FIFO.fifo(procesos);  // Ejecuta el algoritmo FIFO
+                    FIFO.fifo(procesos);
                     break;
                 case 2:
-                    SJF.sjf(procesos);  // Ejecuta el algoritmo SJF
+                    SJF.sjf(procesos);
                     break;
                 case 3:
-                    Prioridad.prioridad(procesos);  // Ejecuta el algoritmo de Prioridad
+                    Prioridad.prioridad(procesos);
                     break;
                 case 4:
                     System.out.print("Ingresa el quantum para Round Robin: ");
                     int quantum = lector.nextInt();
-                    RoundRobin.roundRobin(procesos, quantum);  // Ejecuta el algoritmo Round Robin
+                    RoundRobin.roundRobin(procesos, quantum);
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese un número entre 1 y 4.");
@@ -48,10 +46,10 @@ public class Main {
             System.out.print("¿Desea ejecutar otro algoritmo? (s/n): ");
             String respuesta = lector.next();
             if (respuesta.equalsIgnoreCase("n")) {
-                seguirEjecutando = false;  // Salir del bucle si la respuesta es 'n'
+                seguirEjecutando = false;
             }
         }
 
-        lector.close();  // Cerrar el scanner al final
+        lector.close();
     }
 }

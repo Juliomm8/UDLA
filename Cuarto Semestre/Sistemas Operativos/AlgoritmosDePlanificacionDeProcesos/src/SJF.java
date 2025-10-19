@@ -3,7 +3,6 @@ import java.util.*;
 public class SJF {
 
     public static void sjf(List<Tabla> procesos) {
-        // Ordenar los procesos por tiempo de rafaga (de menor a mayor)
         procesos.sort(Comparator.comparingInt( proceso -> proceso.getTiempoRafaga()));
 
         int tiempoTranscurrido = 0;
@@ -30,7 +29,7 @@ public class SJF {
         }
 
         double promedioEspera = (double) totalEspera / procesos.size();
-        double promedioRetorno = (double) totalRetorno / procesos.size(); // Calculamos las medias
+        double promedioRetorno = (double) totalRetorno / procesos.size();
         System.out.println("\nMedia de Tiempo de Espera: " + promedioEspera);
         System.out.println("Media de Tiempo de Retorno: " + promedioRetorno);
     }

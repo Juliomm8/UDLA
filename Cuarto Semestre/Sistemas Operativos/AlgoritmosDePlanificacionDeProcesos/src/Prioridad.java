@@ -5,7 +5,6 @@ import java.util.List;
 public class Prioridad {
 
     public static void prioridad(List<Tabla> procesos) {
-        // Ordenar por prioridad (de mayor a menor)
         procesos.sort(Comparator.comparingInt( proceso -> proceso.getNivelPrioridad()));
 
         int tiempoTranscurrido = 0;
