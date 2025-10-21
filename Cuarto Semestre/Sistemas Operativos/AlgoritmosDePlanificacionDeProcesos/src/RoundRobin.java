@@ -26,7 +26,6 @@ public class RoundRobin {
             if (proceso.getTiempoRafaga() > 0) {
                 cola.offer(proceso);
             }
-
             tiempoTranscurrido += tiempoEjecucion;
         }
 
